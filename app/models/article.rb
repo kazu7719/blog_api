@@ -1,5 +1,5 @@
 class Article < ApplicationRecord
-  enum status: { draft: 0, published: 1, archived: 2 }
+  enum status: { draft: 0, published: 1, archived: 2 }, _prefix: true
 
   validates :title, presence: { message: 'タイトルを入力してください' },
                     length: { maximum: 100, message: 'タイトルは100文字以内で入力してください', allow_blank: true }
@@ -11,7 +11,7 @@ class Article < ApplicationRecord
   private
 
   def validate_published_at_presence
-    if published? && published_at.blank?
+    if status_published? && published_at.blank?
       errors.add(:published_at, 'を入力してください')
     end
   end
