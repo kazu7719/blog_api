@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :article do
-    title { 'テスト記事タイトル' }
-    body { 'テスト記事本文' }
+    sequence(:title) { |n| "テスト記事#{n}" }
+    body { 'テスト本文' }
     status { :draft }
 
     trait :published do
@@ -11,6 +11,10 @@ FactoryBot.define do
 
     trait :archived do
       status { :archived }
+    end
+
+    trait :with_long_title do
+      title { 'a' * 100 }
     end
   end
 end
